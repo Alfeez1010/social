@@ -16,10 +16,9 @@ app.post('/signup', async (req, res) => {
   console.log(req.body);
   try {
     await userdata.create({
+      fname: req.body.fname,
       lname: req.body.lname,
       email: req.body.email,
-      fname: req.body.fname,
-
       password: req.body.password,
     });
     res.json({ status: 'ok' });
@@ -30,7 +29,19 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// app.post('/login', fun);
+app.post('/login', async (req, res) => {
+  console.log(req.body);
+  const user = await userdata.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  });
+  if (user) {
+    return res.json({ status: 'ok', user: true });
+    window.location.href = '/home';
+  } else {
+    return res.json({ status: 'error', user: false });
+  }
+});
 
 const PORT = 8000;
 
