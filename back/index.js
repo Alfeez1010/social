@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import Connections from './db/db.js';
 import userdata from './model/mongoSchema.js';
-
 const app = express();
 app.use(cors());
 
@@ -37,7 +36,6 @@ app.post('/login', async (req, res) => {
   });
   if (user) {
     return res.json({ status: 'ok', user: true });
-    window.location.href = '/home';
   } else {
     return res.json({ status: 'error', user: false });
   }
