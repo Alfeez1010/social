@@ -36,7 +36,7 @@ function SignupTwo() {
       .post('http://localhost:8000/signup', formData)
 
       .then((res) => {
-        console.log('jheolo');
+        console.log('done');
       })
       .catch((err) => {
         console.log('err');

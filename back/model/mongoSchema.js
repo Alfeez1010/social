@@ -1,25 +1,33 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-const userDataschema = new mongoose.Schema({
-  fname: {
-    type: String,
-  },
-  lname: {
-    type: String,
-  },
-  password: {
-    type: String,
-  },
-  email: {
-    type: String,
-  },
+const userdata = new mongoose.Schema(
+  {
+    fname: {
+      type: String,
+      required: true,
+    },
+    lname: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
 
-  password: {
-    type: String,
-    required: [true, 'Please provide a password!'],
-    unique: false,
+    password: {
+      type: String,
+      required: [true, 'Please provide a password!'],
+      unique: false,
+    },
   },
-});
+  { collection: 'signup' }
+);
 
-const userData = mongoose.model('userData', userDataschema);
-export default userData;
+const User = mongoose.model('userData', userdata);
+export default User;
