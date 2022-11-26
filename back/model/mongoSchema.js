@@ -19,12 +19,19 @@ const userdata = new mongoose.Schema(
       type: String,
       required: true,
     },
-
     password: {
       type: String,
       required: [true, 'Please provide a password!'],
       unique: false,
     },
+    otp: {
+      type: Number,
+    },
+
+    // hashedPass: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   { collection: 'signup' }
 );
