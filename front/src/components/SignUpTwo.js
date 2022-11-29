@@ -28,7 +28,6 @@ function SignupTwo() {
   const user = useSelector((state) => state.user);
 
   const onFormSubmit = (e) => {
-    e.preventDefault();
     dispatch(update());
     console.log(fname, lname, email, password);
     const formData = { fname, lname, email, password };
@@ -107,7 +106,6 @@ function SignupTwo() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
                 fullWidth
                 name="password"
                 label="Password"
@@ -117,6 +115,7 @@ function SignupTwo() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                required
               />
             </Grid>
             <Grid item xs={12} margin="6px">
@@ -134,11 +133,12 @@ function SignupTwo() {
           </Grid>
           <Button
             type="submit"
-            href="#"
+            href="/login"
             fullWidth
             onClick={onFormSubmit}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            required
           >
             Sign Up
           </Button>

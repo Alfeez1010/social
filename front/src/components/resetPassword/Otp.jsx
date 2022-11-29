@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,10 +11,11 @@ import { update } from '../../redux/userSlice';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
-function LoginPage() {
+function Otp() {
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  // const [login, setLogin] = useState('');
+  const [otp, setOtp] = useState('');
+
+  //   const [login, setLogin] = useState('');
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -27,17 +26,16 @@ function LoginPage() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(update({ email, password }));
-    console.log(email, password);
-    const loginData = {
-      email,
+    dispatch(update({ password }));
+    const resetData = {
       password,
+      otp,
     };
     axios
-      .post('http://localhost:8000/login', loginData)
+      .post('http://localhost:8000/otp', resetData)
       .then((res) => {
-        console.log(res);
-        navigate('/home');
+        // console.log(resetData);
+        navigate('/login');
       })
       .catch((err) => {
         console.log(err);
@@ -49,9 +47,14 @@ function LoginPage() {
     <div>
       <Box
         sx={{
-          height: '1000',
+          width: '50vh',
+          bgcolor: '',
+          padding: 6,
+          margin: 'auto',
+          //   height: '1000',
           marginTop: 8,
           display: 'flex',
+          alignContent: 'center',
           borderStyle: 'solid',
           borderColor: '#d3dbe8',
           borderRadius: '10',
@@ -64,7 +67,7 @@ function LoginPage() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          New Password
         </Typography>
         <Box component="form" noValidate sx={{ mt: 3, ml: 1 }}>
           <Grid
@@ -75,27 +78,25 @@ function LoginPage() {
             fullWidth
             marginRight={1}
           >
+            {' '}
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="email"
-                label="email"
-                placeholder={user.email}
+                id="otp"
+                label="otp"
                 autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setOtp(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
                 id="password"
+                label="password"
                 placeholder={user.password}
-                autoComplete="new-password"
+                autoComplete="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
@@ -116,18 +117,6 @@ function LoginPage() {
                 ''
               )}
             </Grid>
-            <Grid item xs={12} margin="6px">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    value="allowExtraEmails"
-                    color="primary"
-                    size="15px"
-                  />
-                }
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -136,20 +125,12 @@ function LoginPage() {
             onClick={handleUpdate}
             sx={{ mt: 3, mb: 2 }}
           >
-            Login
+            Reset
           </Button>{' '}
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link to="/reset" href="#" variant="body2">
-                Forgotten password{' '}
-              </Link>
-            </Grid>
-          </Grid>
-          <Grid container justifyContent="center"></Grid>
         </Box>
       </Box>
     </div>
   );
 }
 
-export default LoginPage;
+export default Otp;

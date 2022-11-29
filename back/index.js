@@ -17,24 +17,22 @@ const db = Connections();
 app.post('/signup', async (req, res) => {
   // const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-  const dataUser = {
-    fname: req.body.fname,
-    lname: req.body.lname,
-    email: req.body.email,
-    password: req.body.password,
-    // hashedPass: hashedPassword,
-  };
-  console.log(dataUser);
+  // const dataUser = {
+  //   fname: req.body.fname,
+  //   lname: req.body.lname,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  // };
   try {
-    // const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const datas = await userdata.create({
       fname: req.body.fname,
       lname: req.body.lname,
       email: req.body.email,
-      password: req.body.password,
-      // hashedPass: hashedPassword,
+      password: hashedPassword,
     });
     res.json({ status: 'ok' });
+    console.log(hashedPassword);
     // console.log(req.body);
 
     // res.redirect('/home');
@@ -48,19 +46,29 @@ app.post('/login', async (req, res) => {
   // console.log(dataUser);
   const user = await userdata.findOne({
     email: req.body.email,
-    password: req.body.password,
+    // password: req.body.password,
   });
   if (user) {
-    return res.status(201).json({
-      status: 'ok',
-      user: true,
-      message: 'successfully logined',
-    });
+    const a = await bcrypt.compare(req.body.password, user.password);
+    console.log(a);
+    if (a == true) {
+      return res.status(201).json({
+        status: 'ok',
+        user: true,
+        message: 'successfully logined',
+      });
+    } else {
+      return res.status(401).json({
+        status: 'error',
+        user: false,
+        message: ' password incorrect',
+      });
+    }
   } else {
     return res.status(401).json({
       status: 'error',
       user: false,
-      message: 'user or password incorrect',
+      message: 'user incorrect',
     });
   }
 });
