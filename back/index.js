@@ -5,26 +5,24 @@ import Connections from './db/db.js';
 import userdata from './model/mongoSchema.js';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import path from 'path';
 
 const app = express();
 app.use(cors());
 
 app.use(bodyParser.json({ extended: true }));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = Connections();
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, '../SocialMedia/front/build')));
 
 app.post('/signup', async (req, res) => {
-  // const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-  // const dataUser = {
-  //   fname: req.body.fname,
-  //   lname: req.body.lname,
-  //   email: req.body.email,
-  //   password: req.body.password,
-  // };
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    console.log(req.body.password);
     const datas = await userdata.create({
       fname: req.body.fname,
       lname: req.body.lname,
@@ -155,9 +153,10 @@ app.post('/otp', async (req, res) => {
       });
     });
 });
-
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '../SocialMedia/front/build/index.html'))
+);
 const PORT = 8000;
 
-app.get('');
-
 app.listen(PORT, () => console.log(`running successfully $(PORT)`));
+// C:\Users\alfee\OneDrive\Desktop\internship\material ui\social\SocialMedia\front\build\index.html
