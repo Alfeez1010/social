@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = Connections();
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, '../SocialMedia/front/build')));
-
 app.post('/signup', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -82,13 +80,7 @@ app.post('/reset', async (req, res) => {
   if (!user) {
     res.send({ code: 500, message: 'user not found' });
   }
-  // else {
-  //   return res.status(401).json({
-  //     status: 'error',
-  //     user: false,
-  //     message: 'user not found',
-  //   });
-  // }
+
   let testAccount = await nodemailer.createTestAccount();
 
   let transporter = nodemailer.createTransport({
@@ -153,6 +145,8 @@ app.post('/otp', async (req, res) => {
       });
     });
 });
+app.use(express.static(path.join(__dirname, '../SocialMedia/front/build')));
+
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '../SocialMedia/front/build/index.html'))
 );
