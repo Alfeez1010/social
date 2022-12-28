@@ -3,37 +3,23 @@ import {
   AppBar,
   Avatar,
   Badge,
-  InputBase,
   Toolbar,
   Typography,
   styled,
   Menu,
   MenuItem,
-  TextField,
   Button,
 } from '@mui/material';
-import Search from '@mui/icons-material/Search';
-
-import SearchBar from 'material-ui-search-bar';
-
 import { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
 
 import { Box } from '@mui/system';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import e from 'cors';
 
 const StyledToolbar = styled(Toolbar)({
   display: 'flex',
   justifyContent: 'space-between',
 });
-
-const Searching = styled('div')(({ theme }) => ({
-  backgroundColor: 'white',
-  padding: '0 10px',
-  width: '40%',
-}));
 
 const Icons = styled(Box)(({ theme }) => ({
   display: 'none',
@@ -52,28 +38,6 @@ const UserBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
 function Navbar() {
   const [avatar, setAvatar] = useState(false);
   const name = useSelector((state) => state.user.name);
