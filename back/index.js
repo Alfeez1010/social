@@ -16,7 +16,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = Connections();
 const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '../SocialMedia/front/build')));
 
+app.get('*', (req, res) => {
+  try {
+    res.sendFile(path.join(__dirname, '../SocialMedia/front/build/index.html'));
+    console.log('deployed');
+  } catch (error) {
+    console.log(error);
+  }
+});
 app.post('/signup', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -145,11 +154,7 @@ app.post('/otp', async (req, res) => {
       });
     });
 });
-app.use(express.static(path.join(__dirname, '../SocialMedia/front/build')));
 
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '../SocialMedia/front/build/index.html'))
-);
 const PORT = 8000;
 
 app.listen(PORT, () => console.log(`running successfully $(PORT)`));

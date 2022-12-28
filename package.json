@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Alfeez1010/social#readme",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.1"
+    "@reduxjs/toolkit": "^1.9.1",
+    "webpack": "^5.75.0"
   }
 }
