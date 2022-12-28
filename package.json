@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Alfeez1010/social/issues"
   },
-  "homepage": "https://github.com/Alfeez1010/social#readme"
+  "homepage": "https://github.com/Alfeez1010/social#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1"
+  }
 }

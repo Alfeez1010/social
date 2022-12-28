@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import 'dotenv/config';
 
 export const Connections = () => {
-  // const MONGODB_URI =
-  // 'mongodb+srv://alfeez:alfeez@cluster1.nf0orrm.mongodb.net/?retryWrites=true&w=majority';
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+  const MONGODB_URI =
+    'mongodb+srv://alfeez:alfeez@cluster1.nf0orrm.mongodb.net/?retryWrites=true&w=majority';
+  mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
   mongoose.connection.on('connected', () => {
     console.log('database connected');
